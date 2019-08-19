@@ -5,7 +5,7 @@
     "start": "node --experimental-modules --experimental-wasm-modules ./server/server.mjs"
   },
   "dependencies": {
-    "dotenv": "file:utils/dotenv",
+    "dotenv": "link:utils/dotenv",
     "memoize": "link:utils/memoize"
   }
 }
