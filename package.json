@@ -1,0 +1,10 @@
+{
+  "name": "server-testing",
+  "private": true,
+  "scripts": {
+    "start": "node --experimental-modules --experimental-wasm-modules ./server/server.mjs"
+  },
+  "dependencies": {
+    "dotenv": "file:utils/dotenv"
+  }
+}
