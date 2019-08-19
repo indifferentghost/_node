@@ -1,0 +1,7 @@
+dependencies:
+  dotenv: 'link:utils/dotenv'
+  memoize: 'link:utils/memoize'
+lockfileVersion: 5.1
+specifiers:
+  dotenv: 'file:utils/dotenv'
+  memoize: 'link:utils/memoize'
