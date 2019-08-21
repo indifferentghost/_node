@@ -1,0 +1,5 @@
+dependencies:
+  memoize: 'link:../memoize'
+lockfileVersion: 5.1
+specifiers:
+  memoize: 'link:../memoize'
