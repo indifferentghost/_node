@@ -1,7 +1,9 @@
 dependencies:
+  dirname: 'link:utils/dirname'
   dotenv: 'link:utils/dotenv'
   memoize: 'link:utils/memoize'
 lockfileVersion: 5.1
 specifiers:
+  dirname: 'link:utils/dirname'
   dotenv: 'link:utils/dotenv'
   memoize: 'link:utils/memoize'

@@ -1,5 +1,7 @@
 /**
- * @todo TODO: write jsDoc
+ * Caches a function
+ *
+ * @param {function} callback - function to be cached
  */
 const memoize = callback => {
   const memo = new Proxy({}, {
@@ -15,7 +17,7 @@ const memoize = callback => {
       memo[args] = callback(args);
     }
     return memo[args];
-  }
+  };
 };
 
 export default memoize;
