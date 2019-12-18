@@ -9,7 +9,7 @@ const memoize = callback => {
       memo[JSON.stringify(args)] = value;
     },
     get: (memo, args) => memo[JSON.stringify(args)],
-    has: (memo, args) => memo[JSON.stringify(args)] !== undefined
+    has: (memo, args) => memo[JSON.stringify(args)] !== undefined,
   });
 
   return (...args) => {
@@ -21,4 +21,3 @@ const memoize = callback => {
 };
 
 export default memoize;
-

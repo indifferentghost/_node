@@ -7,7 +7,7 @@ async function dotenv(__dirname) {
   if (fs.existsSync(envPath)) {
     const rl = readline.createInterface({
       input: fs.createReadStream(envPath, { encoding: 'utf8' }),
-      console: false
+      console: false,
     });
 
     for await (const line of rl) {

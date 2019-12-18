@@ -2,7 +2,7 @@
   "name": "server-testing",
   "private": true,
   "scripts": {
-    "start": "node --experimental-modules --experimental-wasm-modules ./server/server.mjs"
+    "start": "NODE_DEBUG=verbose node --experimental-modules --experimental-wasm-modules ./server/server.mjs"
   },
   "dependencies": {
     "dirname": "link:utils/dirname",

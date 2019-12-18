@@ -1,0 +1,9 @@
+{
+  "name": "logger",
+  "version": "0.0.1",
+  "main": "logger.mjs",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-modules --experimental-wasm-modules ./logger.test.mjs"
+  }
+}
