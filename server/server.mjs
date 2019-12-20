@@ -4,72 +4,68 @@ import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
 import { getRootDirectoryBasedOnFile } from 'dirname';
+import { normalizePath } from './helpers.mjs'
 
 const __dirname = globalThis.__dirname = getRootDirectoryBasedOnFile();
-dotenv(__dirname);
+dotenv.config();
 
 const port = process.env.PORT || 8000;
 
-// maps file extention to MIME types
-const mimeType = {
-  '.ico'  : 'image/x-icon',
-  '.html' : 'text/html',
-  '.js'   : 'text/javascript',
-  '.json' : 'application/json',
-  '.css'  : 'text/css',
-  '.png'  : 'image/png',
-  '.jpg'  : 'image/jpeg',
-  '.wav'  : 'audio/wav',
-  '.mp3'  : 'audio/mpeg',
-  '.svg'  : 'image/svg+xml',
-  '.pdf'  : 'application/pdf',
-  '.doc'  : 'application/msword',
-  '.eot'  : 'appliaction/vnd.ms-fontobject',
-  '.ttf'  : 'aplication/font-sfnt'
-};
+// Maps file extention to MIME types
+const mimeType = new Proxy(
+  {
+    '.ico'  : 'image/x-icon',
+    '.html' : 'text/html',
+    '.js'   : 'text/javascript',
+    '.json' : 'application/json',
+    '.css'  : 'text/css',
+    '.png'  : 'image/png',
+    '.jpg'  : 'image/jpeg',
+    '.wav'  : 'audio/wav',
+    '.mp3'  : 'audio/mpeg',
+    '.svg'  : 'image/svg+xml',
+    '.pdf'  : 'application/pdf',
+    '.doc'  : 'application/msword',
+    '.eot'  : 'appliaction/vnd.ms-fontobject',
+    '.ttf'  : 'aplication/font-sfnt',
+  },
+  {
+    get: (obj, prop) => obj[prop] || 'text/plain',
+  }
+);
 
-export default () => {
-  const server = http.createServer((req, res) => {
-    console.log(`${process.pid} ${req.method} ${req.url}`);
+/**
+ * Static file server
+ */
+const server = http.createServer((request, response) => {
+  console.info(`${request.method} ${request.url}`);
+  const [pathname, pathError] = normalizePath(request.url);
+  if (pathError) {
+    response.statusCode = 404;
+    response.end(pathError);
+    return;
+  }
 
-    // parse url
-    const parsedUrl = url.parse(req.url);
-
-    // extract URL path
-    // Avoid https://en.wikipedia.org/wiki/Directory_traversal_attack
-    // by limiting the path to current directory only
-    const sanitizedPath =
-      path.normalize(parsedUrl.pathname).replace(/^(\.\.[\/\\])+/, '');
-    let pathname = path.join(__dirname, '/server', sanitizedPath);
-
-    if (!fs.existsSync(pathname)) {
-      res.statusCode = 404;
-      res.end(`${sanitizedPath} doesn't exist`);
+  fs.readFile(pathname, (error, data) => {
+    if (error) {
+      response.statusCode = 500;
+      response.end(`Error getting ${request.url}`);
       return;
     }
 
-    if (fs.statSync(pathname).isDirectory()) {
-      pathname += '/index.html';
-      pathname = pathname.replace(/\/\//g, '/');
-    }
-
-    fs.readFile(pathname, (error, data) => {
-      if (error) {
-        res.statusCode = 500;
-        res.end(`Error getting ${sanitizedPath}`);
-        return;
-      }
-
-      const ext = path.parse(pathname).ext;
-      res.setHeader('Content-type', mimeType[ext] || 'text/plain');
-      res.end(data);
+    const ext = path.parse(pathname).ext;
+    response.writeHead(200, {
+      'Content-type':  mimeType[ext],
+      'Content-Length': data.byteLength,
+      'Content-Language': 'en',
     });
+    response.end(data);
   });
+});
 
-  server.listen(port, () => {
-    console.info(
-      `Server listening on port: ${port}.\n`,
-      `On process id ${process.pid}.`
-    );
-  });
-};
+server.listen(port, () => {
+  console.info(
+    `\nServer listening on port: ${port}.`,
+    `\nOn process id ${process.pid}.`,
+  );
+});

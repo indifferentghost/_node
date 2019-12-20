@@ -2,8 +2,14 @@ import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
 
-async function dotenv(__dirname) {
-  const envPath = path.resolve(__dirname, '.env');
+/**
+ * @method config
+ * @param {string} [relativePath=''] - custom directory path for `.env` file
+ * @description Adds anything in .env as properties to the global environment
+ */
+export const config = async (relativePath = '') => {
+  const envPath = path.resolve(__dirname, relativePath, '.env');
+
   if (fs.existsSync(envPath)) {
     const rl = readline.createInterface({
       input: fs.createReadStream(envPath, { encoding: 'utf8' }),
@@ -16,6 +22,3 @@ async function dotenv(__dirname) {
     }
   }
 }
-
-export default dotenv;
-
