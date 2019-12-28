@@ -1,12 +1,11 @@
 {
   "name": "dotenv",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
-  "main": "./index.mjs",
+  "main": "index.mjs",
   "scripts": {
-    "test": ""
+    "test": "node test/dotenv.test.mjs"
   },
   "dependencies": {
-    "dirname": "link:../dirname"
   }
 }

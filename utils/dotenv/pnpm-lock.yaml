@@ -1,5 +1,0 @@
-dependencies:
-  dirname: 'link:../dirname'
-lockfileVersion: 5.1
-specifiers:
-  dirname: 'link:../dirname'
