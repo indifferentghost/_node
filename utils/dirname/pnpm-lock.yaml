@@ -1,5 +1,6 @@
 dependencies:
+  '@ghost/memoize': 'link:../memoize'
   memoize: 'link:../memoize'
 lockfileVersion: 5.1
 specifiers:
-  memoize: 'link:../memoize'
+  '@ghost/memoize': 'link:../memoize'

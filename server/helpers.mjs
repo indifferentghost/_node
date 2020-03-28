@@ -1,4 +1,3 @@
-
 import url from 'url';
 import fs from 'fs';
 import path from 'path';
@@ -36,3 +35,25 @@ export const normalizePath = uri => {
       : pathname
   ];
 };
+
+// Maps file extention to MIME types
+const mimeTypeMap = new Map();
+mimeTypeMap.set('.ico', 'image/x-icon');
+mimeTypeMap.set('.html', 'text/html');
+mimeTypeMap.set('.js', 'text/javascript');
+mimeTypeMap.set('.json', 'application/json');
+mimeTypeMap.set('.css', 'text/css');
+mimeTypeMap.set('.png', 'image/png');
+mimeTypeMap.set('.jpg', 'image/jpeg');
+mimeTypeMap.set('.wav', 'audio/wav');
+mimeTypeMap.set('.mp3', 'audio/mpeg');
+mimeTypeMap.set('.svg', 'image/svg+xml');
+mimeTypeMap.set('.pdf', 'application/pdf');
+mimeTypeMap.set('.doc', 'application/msword');
+mimeTypeMap.set('.eot', 'appliaction/vnd.ms-fontobject');
+mimeTypeMap.set('.ttf', 'aplication/font-sfnt');
+
+export const mimeType = new Proxy(
+  mimeTypeMap,
+  { get: (obj, prop) => obj.get(prop) || 'text/plain' }
+);

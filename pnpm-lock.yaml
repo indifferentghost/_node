@@ -1,9 +1,13 @@
 dependencies:
-  dirname: 'link:utils/dirname'
-  dotenv: 'link:utils/dotenv'
-  memoize: 'link:utils/memoize'
+  '@ghost/dirname': 'link:utils/dirname'
+  '@ghost/dotenv': 'link:utils/dotenv'
+  '@ghost/logger': 'link:utils/logger'
+  '@ghost/memoize': 'link:utils/memoize'
+  '@ghost/nodewatch': 'link:utils/nodewatch'
 lockfileVersion: 5.1
 specifiers:
-  dirname: 'link:utils/dirname'
-  dotenv: 'link:utils/dotenv'
-  memoize: 'link:utils/memoize'
+  '@ghost/dirname': 'link:utils/dirname'
+  '@ghost/dotenv': 'link:utils/dotenv'
+  '@ghost/logger': 'link:utils/logger'
+  '@ghost/memoize': 'link:utils/memoize'
+  '@ghost/nodewatch': 'link:utils/nodewatch'

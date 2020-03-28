@@ -1,9 +1,9 @@
 {
-  "name": "dirname",
+  "name": "@ghost/dirname",
   "main": "./index.mjs",
   "version": "0.0.1",
   "type": "module",
   "dependencies": {
-    "memoize": "link:../memoize"
+    "@ghost/memoize": "link:../memoize"
   }
 }

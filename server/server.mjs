@@ -2,43 +2,23 @@ import http from 'http';
 import url from 'url';
 import fs from 'fs';
 import path from 'path';
-import dotenv from 'dotenv';
-import { getRootDirectoryBasedOnFile } from 'dirname';
-import { normalizePath } from './helpers.mjs'
+import * as dotenv from '@ghost/dotenv';
+import { getRootDirectoryBasedOnFile } from '@ghost/dirname';
+import { Logger } from '@ghost/logger';
+import { normalizePath, mimeType } from './helpers.mjs';
 
 const __dirname = globalThis.__dirname = getRootDirectoryBasedOnFile();
 dotenv.config();
 
-const port = process.env.PORT || 8000;
+const logger = new Logger('test', { loglevel: 'verbose' });
 
-// Maps file extention to MIME types
-const mimeType = new Proxy(
-  {
-    '.ico'  : 'image/x-icon',
-    '.html' : 'text/html',
-    '.js'   : 'text/javascript',
-    '.json' : 'application/json',
-    '.css'  : 'text/css',
-    '.png'  : 'image/png',
-    '.jpg'  : 'image/jpeg',
-    '.wav'  : 'audio/wav',
-    '.mp3'  : 'audio/mpeg',
-    '.svg'  : 'image/svg+xml',
-    '.pdf'  : 'application/pdf',
-    '.doc'  : 'application/msword',
-    '.eot'  : 'appliaction/vnd.ms-fontobject',
-    '.ttf'  : 'aplication/font-sfnt',
-  },
-  {
-    get: (obj, prop) => obj[prop] || 'text/plain',
-  }
-);
+const port = process.env.PORT || 8000;
 
 /**
  * Static file server
  */
 const server = http.createServer((request, response) => {
-  console.info(`${request.method} ${request.url}`);
+  logger.info(`${request.method} ${request.url}`);
   const [pathname, pathError] = normalizePath(request.url);
   if (pathError) {
     response.statusCode = 404;
@@ -64,8 +44,5 @@ const server = http.createServer((request, response) => {
 });
 
 server.listen(port, () => {
-  console.info(
-    `\nServer listening on port: ${port}.`,
-    `\nOn process id ${process.pid}.`,
-  );
+  logger.log`\n\nServer listening on port: ${port}.\nOn process id ${process.pid}.`;
 });

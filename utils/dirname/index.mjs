@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import { memoizeOne } from 'memoize';
+import { memoizeOne } from '@ghost/memoize';
 
 /** Gets the root directory name */
 class WalkingState {

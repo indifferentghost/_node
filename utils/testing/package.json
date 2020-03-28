@@ -1,5 +1,5 @@
 {
-  "name": "testing",
+  "name": "@ghost/testing",
   "version": "1.0.0",
   "main": "index.mjs",
   "type": "module",

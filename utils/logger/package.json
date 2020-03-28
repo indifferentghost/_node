@@ -1,5 +1,5 @@
 {
-  "name": "logger",
+  "name": "@ghost/logger",
   "version": "0.0.1",
   "main": "logger.mjs",
   "type": "module",
