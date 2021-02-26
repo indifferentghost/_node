@@ -1,7 +1,6 @@
 import util from 'util';
 import { randomBytes } from 'crypto';
 
-const inspect = Symbol.for('nodejs.util.inspect.custom');
 export const _id = Symbol.for('Logger::_id');
 
 const _handleTemplate = (strings, ...values) => {
@@ -47,5 +46,5 @@ export class Logger {
     `}\n`,
   ].join('\n');
 
-  [inspect] = () => this.toString();
+  [util.inspect.custom] = () => this.toString();
 }
